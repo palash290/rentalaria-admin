@@ -1,0 +1,130 @@
+<div class="ct_inner_header_bg mt-4 ct_px_30 ">
+    <div class="py-4 bg-white header-inner-box">
+        <h4 class="ct_fs_26 ct_fw_500 mb-0 ct_black_text">Amenities</h4>
+        <p class="ct_text_black mb-0">Manage and Monitor Platform Amenities</p>
+        <div class="mt-3">
+            <div class="property-toolbar">
+                <div class="d-md-flex align-items-center gap-3 flex-wrap justify-content-between">
+                    <div class="d-flex ct_flex_col_767 gap-3">
+                        <!-- Search -->
+                        <div class="search-box ct_w_100_767">
+                            <div class="input-group position-relative ct_w_100_767">
+                                <input type="text" class="form-control ct_input pe-5 "
+                                    placeholder="Search by amenitie name..." [(ngModel)]="searchText"
+                                    (input)="getAmenities()">
+                                <i class="fas fa-search ct_show_eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add Property Button -->
+                    <a (click)="reset()" class="ct_black_btn d-flex align-items-center gap-2 mt-md-0 mt-3"
+                        data-bs-toggle="modal" data-bs-target="#addAmeModal">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 8V16M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                                stroke="white" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Add Amenities
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ct_inner_header_bg mt-4 ct_px_30 ">
+    <div class="container my-4 property-page">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive ct_custom_table">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th>S No.</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of filteredData; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{item.name}}</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <a data-bs-toggle="modal" data-bs-target="#addAmeModal" (click)="getId(item)">
+                                            <i class="fa-regular fa-pen-to-square text-success"></i>
+                                        </a>
+                                        <!-- <a data-bs-toggle="modal" data-bs-target="#deletePropertyModal">
+                                            <i class="fa-solid fa-trash text-danger"></i>
+                                        </a> -->
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <div class="col-md-12">
+                    <div class="ct_no_recod_found_bg" *ngIf="filteredData?.length == 0">
+                        <p class="text-center mb-0 ct_fs_20">No amenity found</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addAmeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 p-4">
+
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-4 mb-3">
+                <h4 class="ct_fs_24 ct_fw_500 my-0">{{amenityId ? 'Update' : 'Add'}} Amenity</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form [formGroup]="Form">
+                <div class="mb-2 border-bottom pb-5">
+                    <label class="form-label ct_fw_400 ">Amenity Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Amenity Name" formControlName="name">
+                    <div *ngIf="Form.controls['name'].invalid && Form.controls['name'].touched" class="err_msg">
+                        <div *ngIf="Form.controls['name'].errors?.['required']">Please enter
+                            your amenity name.</div>
+                    </div>
+                </div>
+            </form>
+            <div class="d-flex gap-3 justify-content-end">
+                <button #closeModalAdd class="btn btn-light px-4" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button (click)="onSubmit()" class="btn btn-dark px-4">
+                    {{amenityId ? 'Update' : 'Add'}} Amenity
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deletePropertyModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 p-4">
+            <!-- Close button -->
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"></button>
+            <h4 class="ct_fs_28 ct_fw_500 mt-2">Delete Amenity</h4>
+            <p class="text-muted mb-4 ct_fs_18">
+                Are you sure you delete this amenity ?
+            </p>
+            <div class="d-flex gap-3">
+                <button #closeModalDelete class="btn btn-dark px-4" data-bs-dismiss="modal">
+                    No
+                </button>
+                <button class="btn btn-light px-4">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- delete modal end -->
+
+<div class="ct_loader_main" *ngIf="loading">
+    <span class="loader"></span>
+</div>

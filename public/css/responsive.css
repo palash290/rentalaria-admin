@@ -1,0 +1,146 @@
+@media screen and (max-width: 1199px) {
+  .ct_login_right h4 {
+    font-size: 40px;
+  }
+
+  .ct_inquery_main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ct_flex_col_1199 {
+    flex-direction: column;
+    align-items: start !important;
+  }
+
+  .ct_inquery_main li+li {
+    padding-left: 0;
+    border: none;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .ct_login_right h4 {
+    font-size: 40px;
+  }
+
+  .ct_login_right {
+    padding-inline: 60px;
+    /* margin-left: 0px; */
+    /* margin: 15px; */
+  }
+
+  .ct_login_left {
+    display: none;
+  }
+
+  .ct_login_main {
+    grid-template-columns: auto !important;
+  }
+
+  .ct_side_bar {
+    left: -100%;
+    padding-top: 40px;
+  }
+
+  .ct_right_panel {
+    margin-left: 0px;
+    width: 100%;
+  }
+
+  .ct_show .ct_side_bar {
+    left: 0px;
+  }
+
+  .ct_show .ct_side_bar {
+    left: 0px;
+  }
+
+  .ct_close_sidebar {
+    position: absolute;
+    display: block;
+    right: 15px;
+    top: 0px;
+    font-size: 22px;
+    transition: 0.4s ease all;
+  }
+
+  .ct_close_sidebar:hover {
+    transform: rotate(360deg);
+  }
+
+  .ct_menu_bar {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .ct_fs_44 {
+    font-size: 28px;
+  }
+
+  .ct_fs_18 {
+    font-size: 16px;
+  }
+
+  .ct_p_40 {
+    padding: 25px;
+  }
+
+  .ct_flex_col_767 {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .ct_w_100_767 {
+    width: 100% !important;
+  }
+
+  .ct_grid_30_auto {
+    border-left: 0px;
+    padding-left: 0px;
+  }
+
+  .ct_custom_tabs.nav-pills {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ct_custom_tabs.nav-pills .nav-link {
+    width: 100%;
+  }
+
+  .property-toolbar .search-box {
+    max-width: 100%;
+  }
+
+  .lifestyle-box {
+    border: 1px solid rgba(229, 231, 235, 1);
+    padding: 15px 15px;
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 14px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .ct_inquery_main {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .ct_login_right {
+    padding: 30px;
+  }
+
+  .ct_px_30 {
+    padding-inline: 15px;
+  }
+
+  .ct_big_user_img img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .ct_pe_30 {
+    padding-right: 15px;
+  }
+}

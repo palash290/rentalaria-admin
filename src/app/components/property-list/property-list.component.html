@@ -1,0 +1,133 @@
+<div class="ct_inner_header_bg mt-4 ct_px_30 ">
+    <div class="py-4 bg-white header-inner-box">
+        <h4 class="ct_fs_26 ct_fw_500 mb-0 ct_black_text">Properties</h4>
+        <p class="ct_text_black mb-0">Manage and Monitor Platform Properties</p>
+        <div class="mt-3">
+            <div class="property-toolbar">
+                <div class="d-md-flex align-items-center gap-3 flex-wrap  justify-content-between">
+                    <div class="d-flex ct_flex_col_767 gap-3">
+                        <!-- Search -->
+                        <div class="search-box ct_w_100_767">
+                            <div class="input-group position-relative ct_w_100_767">
+                                <input type="text" class="form-control ct_input pe-5 "
+                                    placeholder="Search by property name..." [(ngModel)]="searchText"
+                                    (input)="loadData()">
+                                <i class="fas fa-search ct_show_eye"></i>
+                            </div>
+                        </div>
+
+                        <!-- Filters -->
+                        <!-- <div class="d-md-flex align-items-center gap-2 filter-box ct_w_100_767">
+                            <span class="">Filter by:</span>
+                            <select class="form-select filter-select ct_input ct_w_100_767 mb-md-0 mb-2 mt-md-0 mt-2">
+                                <option selected>Property Type</option>
+                                <option>Apartment</option>
+                                <option>Villa</option>
+                                <option>Office</option>
+                            </select>
+
+                            <select class="form-select filter-select ct_input ct_w_100_767">
+                                <option selected>Availability</option>
+                                <option>Available</option>
+                                <option>Unavailable</option>
+                            </select>
+                        </div> -->
+
+                    </div>
+
+                    <!-- Add Property Button -->
+                    <a routerLink="/home/add-property"
+                        class="ct_black_btn  d-flex align-items-center gap-2 mt-md-0 mt-3">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 8V16M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                                stroke="white" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Add Property
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ct_px_30 mt-4 pb-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive  ct_custom_table">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Property Name</th>
+                            <th>Property Type</th>
+                            <th>Property Location</th>
+                            <th>Availability</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let item of filteredData | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                            <td>{{(p - 1) * 10 + i + 1}}</td>
+                            <td>{{item.property_name}}</td>
+                            <td>
+                                {{item.property_type_name}}
+                            </td>
+                            <td>{{item.area_name}}</td>
+                            <td>From {{item.available_from | date:'dd-MMM-yyyy'}}</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <a [routerLink]="['/home/view-property']"
+                                        [queryParams]="{property_id : item.property_id}">
+                                        <img src="img/icons/eye.png" alt=""></a>
+                                    <a [routerLink]="['/home/add-property']"
+                                        [queryParams]="{property_id : item.property_id}">
+                                        <img src="img/icons/edit.png">
+                                    </a>
+                                    <a (click)="getId(item.property_id)" data-bs-toggle="modal"
+                                        data-bs-target="#deletePropertyModal">
+                                        <img src="img/icons/delete.png">
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12">
+                <div class="ct_no_recod_found_bg" *ngIf="filteredData?.length == 0">
+                    <p class="text-center mb-0 ct_fs_20">No property found</p>
+                </div>
+            </div>
+            <pagination-controls class="ct_pagination_div" *ngIf="!(propertyList?.length == 0)"
+                (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+</div>
+<!-- delete modal -->
+
+<div class="modal fade" id="deletePropertyModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 p-4">
+            <!-- Close button -->
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"></button>
+            <h4 class="ct_fs_28 ct_fw_500 mt-2">Delete Property</h4>
+            <p class="text-muted mb-4 ct_fs_18">
+                Are you sure you delete this property ?
+            </p>
+            <div class="d-flex gap-3">
+                <button #closeModalDelete class="ct_black_btn " data-bs-dismiss="modal">
+                    No
+                </button>
+                <button (click)="deleteProperty()" class="btn btn-light px-4">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ct_loader_main" *ngIf="loading">
+    <span class="loader"></span>
+</div>

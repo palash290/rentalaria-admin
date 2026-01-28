@@ -1,0 +1,68 @@
+<section class="ct_login_main">
+      <div class="ct_login_left position-relative">
+            <div class="ct_login_btm_logo">
+                  <img src="img/logo-white.png" alt="">
+            </div>
+            <div class="login-content">
+                  <h5>
+                        Manage Smarter. <br>Operate Seamlessly.
+                  </h5>
+                  <p>
+                        Log in to manage properties, enquiries, and content while maintaining a smooth and reliable
+                        workflow across the platform.
+                  </p>
+            </div>
+      </div>
+      <div class="ct_login_right ct_custom_scroll">
+            <h4 class="ct_fs_44  ct_fw_400 mb-2">Welcome back</h4>
+            <p class="ct_fs_17">
+                  We've missed you! Please sign in to catch up on what you've missed
+            </p>
+            <form [formGroup]="Form" class="login-form">
+                  <div class="form-group mb-4 ">
+                        <label for="" class="mb-2">Email</label>
+                        <div class="position-relative">
+                              <input type="email" placeholder="Enter your email" class="form-control ct_input px-4"
+                                    formControlName="email">
+                        </div>
+                        <div *ngIf="Form.controls['email'].invalid && Form.controls['email'].touched" class="err_msg">
+                              <div *ngIf="Form.controls['email'].errors?.['required']" class="ct_fs_14 mt-1">
+                                    Email is required.
+                              </div>
+                              <div *ngIf="Form.controls['email'].errors?.['email'] && !Form.controls['email'].errors?.['required']"
+                                    class="ct_fs_14 mt-1">
+                                    Invalid email format.</div>
+                        </div>
+                        <span class="ct_text_red mt-2 d-none">Please Enter Email</span>
+                  </div>
+                  <div class="form-group mb-4">
+                        <label for="" class="mb-2">Password</label>
+                        <div class="position-relative">
+                              <input type="{{ isPasswordVisible ? 'text' : 'password' }}"
+                                    placeholder="Enter your password" class="form-control ct_input px-4"
+                                    formControlName="password">
+                              <i class="fa-regular ct_show_eye"
+                                    [ngClass]="isPasswordVisible ? 'fa-eye' : 'fa-eye-slash' "
+                                    (click)="togglePasswordVisibility()"></i>
+                        </div>
+                        <div *ngIf="Form.controls['password'].invalid && Form.controls['password'].touched"
+                              class="err_msg">
+                              <div *ngIf="Form.controls['password'].errors?.['required']" class="ct_fs_14 mt-1">
+                                    Password is
+                                    required.</div>
+                        </div>
+                        <span class="ct_text_red mt-2 d-none">Please Enter Password</span>
+                  </div>
+                  <div class="text-end">
+                        <a routerLink="/forgot-password" class="ct_text_black">Forgot Password?</a>
+                  </div>
+                  <div class="mt-5">
+                        <a (click)="login()" class="ct_black_btn w-100">Sign In</a>
+                  </div>
+            </form>
+      </div>
+</section>
+
+<div class="ct_loader_main" *ngIf="loading">
+      <span class="loader"></span>
+</div>

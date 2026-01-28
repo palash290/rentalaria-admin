@@ -1,0 +1,157 @@
+<div class="ct_inner_header_bg mt-4 ct_px_30 ">
+    <div class="container my-4 property-page">
+
+        <!-- Header -->
+        <div>
+            <a routerLink="/home/lifestyle-list"
+                class="text-decoration-none text-dark mb-3 d-inline-block ct_fw_500 ct_fs_26">
+                <i class="fa-solid fa-chevron-left me-2"></i>
+            </a>
+            <span class="text-dark mb-3 d-inline-block ct_fw_500 ct_fs_26"> Add
+                Lifestyle</span>
+        </div>
+
+        <div class="">
+            <form [formGroup]="Form">
+                <div class="card bg-transparent border-0 add-property-form">
+
+                    <!-- Property Name -->
+                    <div class="mb-3">
+                        <label class="form-label ct_fw_500 ">Lifestyle Title</label>
+                        <input type="text" class="form-control" placeholder="Enter Lifestyle Title"
+                            formControlName="title">
+                        <div *ngIf="Form.controls['title'].invalid && Form.controls['title'].touched" class="err_msg">
+                            <div *ngIf="Form.controls['title'].errors?.['required']">Please enter
+                                title.</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label ct_fw_500 ">Short Description</label>
+                        <input type="text" class="form-control" placeholder="Enter short description"
+                            formControlName="short_description">
+                        <div *ngIf="Form.controls['short_description'].invalid && Form.controls['short_description'].touched"
+                            class="err_msg">
+                            <div *ngIf="Form.controls['short_description'].errors?.['required']">Please enter
+                                short description.</div>
+                        </div>
+                    </div>
+
+                    <!-- Property Description -->
+                    <div class="mb-3">
+                        <label class="form-label ct_fw_500">Lifestyle Content </label>
+                        <ckeditor [editor]="Editor" [config]="editorConfig" [(ngModel)]="content"
+                            [ngModelOptions]="{standalone: true}">
+                        </ckeditor>
+                    </div>
+
+                    <!-- Upload -->
+                    <!-- Upload -->
+                    <div class="mb-4">
+                        <label class="form-label ct_fw_500"> Images </label>
+
+                        <div class="upload-box">
+                            <img src="img/icons/upload-cloud-01.png">
+                            <p class="mb-1">Drag and drop files here</p>
+
+                            <!-- Hidden file input -->
+                            <input type="file" id="fileInput" accept="image/png, image/jpeg"
+                                (change)="onFileSelected($event)" hidden />
+
+                            <!-- Label styled as button -->
+                            <label for="fileInput" class="btn mt-3 browse-file-btn">
+                                Browse Files
+                            </label>
+                        </div>
+
+                        <!-- Preview -->
+                        <div class="upload-imgs ct_custom_scroll">
+                            <div class="img-item" *ngIf="previewImage">
+                                <img [src]="previewImage" alt="">
+                                <button class="img-remove" (click)="removeImage()">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <span class="ct_text_red" *ngIf="!selectedFile && Form.touched">
+                            Please upload at least one image
+                        </span>
+
+                    </div>
+
+
+                    <!-- Nearby Location -->
+                    <!-- <div class="mb-4">
+                        <label class="form-label ct_fw_500"> Add Tags</label>
+                        <div class="input-group position-relative">
+                            <input type="text" class="form-control ct_input ct_input_ps_40"
+                                placeholder="  Search by tagname  ">
+                            <i class="fa-solid fa-search ct_show_left"></i>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="col-md-12">
+                            <label class="form-label ct_fs_14">Added Tags</label>
+                            <div class="added-locations ct_para_scroll">
+                                <span class="location-tag">
+                                    City Centre Mall
+                                    <i class="fa-solid fa-xmark"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="amenities d-flex flex-wrap gap-2">
+                        <div class="form-check ct_custom_check" *ngFor="let item of allTags;">
+                            <input class="form-check-input" type="checkbox"
+                                [checked]="selectedtagsIds.includes(item.tag_id)" [id]="'tag_' + item.tag_id"
+                                (change)="onTagChange($event, item.tag_id)" />
+
+                            <label [for]="'tag_' + item.tag_id">
+                                {{ item.name }}
+                            </label>
+                        </div>
+                    </div> -->
+
+                    <div class="mb-4 mt-4">
+                        <label class="form-label ct_fw_500"> Mark this lifestyle featured
+                            ?
+                        </label>
+                        <div class="ct_radio-container">
+                            <div class="ct_radio-wrapper">
+
+                                <label class="ct_radio-button ct_fw_400 mb-2">
+                                    <input type="radio" formControlName="is_featured" value="1">
+                                    <span class="ct_radio-checkmark"></span>
+                                    Yes
+                                </label>
+
+                                <label class="ct_radio-button ct_fw_400">
+                                    <input type="radio" formControlName="is_featured" value="0">
+                                    <span class="ct_radio-checkmark"></span>
+                                    No
+                                </label>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex justify-content-end gap-3 mt-4">
+                        <button class="btn btn-outline-secondary">Cancel</button>
+                        <button class="ct_black_btn px-3 py-2" (click)="submit()">
+                            Publish
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="ct_loader_main" *ngIf="loading">
+    <span class="loader"></span>
+</div>

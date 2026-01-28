@@ -1,0 +1,397 @@
+<div class="ct_inner_header_bg mt-4 ct_px_30 ">
+    <div class="container my-4 property-page">
+
+        <!-- Header -->
+        <div>
+            <a routerLink="/home/property-list"
+                class="text-decoration-none text-dark mb-3 d-inline-block ct_fw_500 ct_fs_26">
+                <i class="fa-solid fa-chevron-left me-2"></i>
+            </a>
+            <span class="text-dark mb-3 d-inline-block ct_fw_500 ct_fs_26"> {{property_id ? 'Update' : 'Add'}}
+                Property</span>
+        </div>
+
+        <div class="">
+            <form [formGroup]="Form">
+                <div class="card bg-transparent border-0 add-property-form">
+
+                    <!-- Property Name -->
+                    <div class="mb-3">
+                        <label class="form-label ct_fw_500 ">Property Name</label>
+                        <input type="text" class="form-control" placeholder="Enter Property Name"
+                            formControlName="property_name">
+                        <div *ngIf="Form.controls['property_name'].invalid && Form.controls['property_name'].touched"
+                            class="err_msg">
+                            <div *ngIf="Form.controls['property_name'].errors?.['required']">Please enter
+                                property name.</div>
+                        </div>
+                    </div>
+
+                    <!-- Property Description -->
+                    <div class="mb-3">
+                        <label class="form-label ct_fw_500">Property Description</label>
+                        <!-- <textarea class="form-control" rows="3" placeholder="Mention About Your Property Here..."
+                            formControlName="description"></textarea>
+                        <div *ngIf="Form.controls['description'].invalid && Form.controls['description'].touched"
+                            class="err_msg">
+                            <div *ngIf="Form.controls['description'].errors?.['required']">Please enter
+                                description.</div>
+                        </div> -->
+                        <ckeditor [editor]="Editor" [config]="editorConfig" [(ngModel)]="content"
+                            [ngModelOptions]="{standalone: true}">
+                        </ckeditor>
+                    </div>
+
+                    <!-- Location -->
+                    <!-- <div class="mb-3">
+                        <label class="form-label ct_fw_500">Property Location</label>
+                        <input type="text" class="form-control" placeholder="Enter Location" formControlName="location">
+                        <div *ngIf="Form.controls['location'].invalid && Form.controls['location'].touched"
+                            class="err_msg">
+                            <div *ngIf="Form.controls['location'].errors?.['required']">Please enter
+                                location.</div>
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-12">
+                        <label class="form-label ct_fw_500">City</label>
+                        <select class="form-select" formControlName="city">
+                            <option value="" disabled>Select City</option>
+                            <option *ngFor="let member of allCity" [value]="member.id">
+                                {{ member.area_name }}
+                            </option>
+                        </select>
+
+                        <div *ngIf="Form.controls['type'].invalid && Form.controls['type'].touched" class="err_msg">
+                            <div *ngIf="Form.controls['type'].errors?.['required']">Please enter
+                                square footage.</div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-12 mt-4">
+                        <label class="form-label ct_fw_500">Property Address</label>
+                        <input type="text" class="form-control" placeholder="Enter Address" formControlName="address">
+                        <div *ngIf="Form.controls['address'].invalid && Form.controls['address'].touched"
+                            class="err_msg">
+                            <div *ngIf="Form.controls['address'].errors?.['required']">Please enter
+                                property address.</div>
+                        </div>
+                    </div> -->
+
+
+
+
+                    <div class="form-group mt-4">
+                        <label for="" class="ct_fs_18 ct_fw_500 mb-2">Address {{isSearchActiveFrom}}</label>
+                        <div class="form-group position-relative">
+                            <input type="text" class="form-control ct_input ct_fs_18" placeholder="Enter address"
+                                [(ngModel)]="terminalName" [ngModelOptions]="{standalone: true}"
+                                (keyup)="searchTerminal()" (blur)="onBlur('terminalName')">
+                            <p *ngIf="!terminalName && isTouched.terminalName" class="err_msg">
+                                This field cannot be empty
+                            </p>
+
+
+                            @if(isSearchActiveFrom){
+                            <div class="ct_suggstion_search">
+                                <ul class="ps-0 mb-0">
+                                    @if(allTerminalsList?.length > 0){
+                                    @for (item of allTerminalsList; track $index) {
+                                    <li (click)="searchByFromCity(item)" style="cursor: pointer;">
+                                        <h6 class="mb-1 mt-1 ct_fw_600">{{item.description}}</h6>
+                                    </li>
+                                    }
+                                    } @else {
+                                    <li>Not found</li>
+                                    }
+                                </ul>
+                            </div>
+                            }
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="ct_white_bg ct_border_radius_10 ct_border_clr_D2D5DB ct_py_28_px_20 mt-4">
+                        <div>
+                            <label class="form-label ct_fw_500">Nearby Property Location</label>
+                            <ul
+                                class="d-flex align-items-center gap-3 flex-wrap  ct_para_scroll ct_custom_scroll ct_pe_30">
+                                @for (item of selectedLocations; track
+                                $index) {
+                                <li>
+                                    <button type="button" class="ct_select_badge">{{item}}
+                                        <span (click)="removeLocation($index)"><i
+                                                class="fa-solid fa-xmark"></i></span></button>
+                                </li>
+                                }
+                            </ul>
+                            <div class="form-group ct_mb_22">
+                                <div class="position-relative">
+                                    <input type="email" class="form-control ct_input ct_input_ps_50 ct_input_pe_100"
+                                        placeholder="Enter Location" #drEmail>
+                                    <button type="button" class="ct_show_eye btn btn-dark ct_h_40 px-3"
+                                        style="right: 16px;" (click)="addLocation(drEmail.value)">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Property Details -->
+                    <div class="row g-3 mb-4 mt-3">
+                        <div class="col-md-6">
+                            <label class="form-label ct_fw_500">Square Footage</label>
+                            <input type="number" class="form-control" placeholder="1000 sq.ft"
+                                formControlName="sq_foot">
+                            <div *ngIf="Form.controls['sq_foot'].invalid && Form.controls['sq_foot'].touched"
+                                class="err_msg">
+                                <div *ngIf="Form.controls['sq_foot'].errors?.['required']">Please enter
+                                    square footage.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label ct_fw_500">Property Type</label>
+                            <select class="form-select" formControlName="type">
+                                <option value="" disabled>Select Type</option>
+                                <option *ngFor="let member of propertyTypes" [value]="member.property_type_id">
+                                    {{ member.name }}
+                                </option>
+                            </select>
+
+                            <div *ngIf="Form.controls['type'].invalid && Form.controls['type'].touched" class="err_msg">
+                                <div *ngIf="Form.controls['type'].errors?.['required']">Please enter
+                                    square footage.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label ct_fw_500">Bedrooms</label>
+
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" type="button" (click)="decreaseBedrooms()">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+
+                                <input type="number" class="form-control text-center" formControlName="bedrooms"
+                                    placeholder="0" />
+
+                                <button class="btn btn-outline-secondary" type="button" (click)="increaseBedrooms()">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+
+                            <div *ngIf="Form.controls['bedrooms'].invalid && Form.controls['bedrooms'].touched"
+                                class="err_msg">
+                                <div *ngIf="Form.controls['bedrooms'].errors?.['required']">Please enter
+                                    number of bedrooms.</div>
+                                <div *ngIf="Form.controls['bedrooms'].errors?.['min']">
+                                    Bedrooms cannot be less than 0
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <label class="form-label ct_fw_500">Bathrooms</label>
+
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" type="button" (click)="decreaseBathroom()">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+
+                                <input type="number" class="form-control text-center" formControlName="bathroom"
+                                    placeholder="0" />
+
+                                <button class="btn btn-outline-secondary" type="button" (click)="increaseBathroom()">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+
+                            <div *ngIf="Form.controls['bathroom'].invalid && Form.controls['bathroom'].touched"
+                                class="err_msg">
+                                <div *ngIf="Form.controls['bathroom'].errors?.['required']">Please enter
+                                    number of bathroom.</div>
+                                <div *ngIf="Form.controls['bathroom'].errors?.['min']">
+                                    Bathrooms cannot be less than 0
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Upload -->
+                    <div class="mb-4">
+                        <label class="form-label ct_fw_500">Upload Images & Videos</label>
+                        <div class="upload-box">
+                            <img src="img/icons/upload-cloud-01.png">
+                            <p class="mb-1">Drag and drop files here</p>
+                            <small class="text-muted">PNG, JPG, MP4 up to 10MB</small><br>
+
+                            <!-- Hidden file input -->
+                            <!-- <input type="file" id="fileInput" accept="image/png, image/jpeg, video/mp4" hidden
+                                (change)="onFilesSelected($event)" multiple> -->
+                            <input type="file" id="fileInput"
+                                [accept]="hasVideo() ? 'image/png,image/jpeg' : 'image/png,image/jpeg,video/mp4'" hidden
+                                (change)="onFilesSelected($event)" multiple>
+
+
+                            <!-- Label styled as button -->
+                            <label for="fileInput" class="btn mt-3 browse-file-btn">
+                                Browse Files
+                            </label>
+                        </div>
+
+                        <div class="upload-imgs ct_custom_scroll">
+                            <div class="img-item" *ngFor="let item of selectedImages; let i = index">
+
+                                <!-- IMAGE -->
+                                <img *ngIf="item.type === 'image'" [src]="item.url" alt="">
+
+                                <!-- VIDEO -->
+                                <video *ngIf="item.type === 'video'" [src]="item.url" controls muted></video>
+
+                                <button class="img-remove" (click)="removeImage(i)">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+
+                            </div>
+                        </div>
+
+                        <span class="ct_text_red" *ngIf="selectedImages.length == 0 && Form.touched">
+                            Please upload at least one image
+                        </span>
+                    </div>
+
+
+                    <!-- Amenities -->
+                    <div class="mb-4">
+                        <label class="form-label ct_fw_500">Amenities</label>
+
+                        <div class="amenities d-flex flex-wrap gap-2">
+                            <div class="form-check ct_custom_check" *ngFor="let item of allAmenity;">
+                                <input class="form-check-input" type="checkbox"
+                                    [checked]="selectedAmenityIds.includes(item.amenity_id)"
+                                    [id]="'amenity_' + item.amenity_id"
+                                    (change)="onAmenityChange($event, item.amenity_id)" />
+
+                                <label [for]="'amenity_' + item.amenity_id">
+                                    {{ item.name }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- House Rules -->
+                    <!-- <div class="mb-4">
+                        <label class="form-label ct_fw_500">House Rules</label>
+                        <textarea class="form-control" rows="3" placeholder="Mention About Your House Rules Here..."
+                            formControlName="houseRules"></textarea>
+                        <div *ngIf="Form.controls['houseRules'].invalid && Form.controls['houseRules'].touched"
+                            class="err_msg">
+                            <div *ngIf="Form.controls['houseRules'].errors?.['required']">Please enter
+                                house rules.</div>
+                        </div>
+                    </div> -->
+
+                    <div class="ct_white_bg ct_border_radius_10 ct_border_clr_D2D5DB ct_py_28_px_20 mt-4">
+                        <div>
+                            <label class="form-label ct_fw_500">House Rules</label>
+                            <ul
+                                class="d-flex align-items-center gap-3 flex-wrap  ct_para_scroll ct_custom_scroll ct_pe_30">
+                                @for (item of selectedRules; track
+                                $index) {
+                                <li>
+                                    <button type="button" class="ct_select_badge">{{item}}
+                                        <span (click)="removeRules($index)"><i
+                                                class="fa-solid fa-xmark"></i></span></button>
+                                </li>
+                                }
+                            </ul>
+                            <div class="form-group ct_mb_22">
+                                <div class="position-relative">
+                                    <input type="text" class="form-control ct_input ct_input_ps_50 ct_input_pe_100"
+                                        placeholder="Enter House Rules" #houseRules>
+                                    <button type="button" class="ct_show_eye btn btn-dark ct_h_40 px-3"
+                                        style="right: 16px;" (click)="addRule(houseRules.value)">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pricing -->
+                    <div class="row g-3 mb-4 mt-4">
+                        <div class="col-md-12">
+                            <label class="form-label ct_fw_500">Monthly Rent</label>
+
+                            <div class="input-group position-relative">
+                                <input type="text" class="form-control ct_input pe-5" placeholder="Enter monthly rent"
+                                    formControlName="rent" />
+                                <i class="fa-solid fa-euro-sign ct_show_eye"></i>
+                            </div>
+
+                            <div *ngIf="Form.controls['rent'].invalid && Form.controls['rent'].touched" class="err_msg">
+                                <div *ngIf="Form.controls['rent'].errors?.['required']">
+                                    Please enter monthly rent.
+                                </div>
+
+                                <div *ngIf="Form.controls['rent'].errors?.['pattern']">
+                                    Enter a valid rent amount.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label ct_fw_500"> Security Deposit</label>
+                            <div class="input-group position-relative">
+                                <input type="text" class="form-control ct_input pe-5"
+                                    placeholder="Enter security deposit  " formControlName="deposit">
+                                <i class="fa-solid fa-euro-sign ct_show_eye"></i>
+                            </div>
+                            <div *ngIf="Form.controls['deposit'].invalid && Form.controls['deposit'].touched"
+                                class="err_msg">
+                                <div *ngIf="Form.controls['deposit'].errors?.['required']">
+                                    Please enter monthly rent.
+                                </div>
+
+                                <div *ngIf="Form.controls['deposit'].errors?.['pattern']">
+                                    Enter a valid deposit amount.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label ct_fw_500">Available From</label>
+                            <input type="date" class="form-control ct_input" [min]="minDate"
+                                formControlName="availableFrom">
+                            <div *ngIf="Form.controls['availableFrom'].invalid && Form.controls['availableFrom'].touched"
+                                class="err_msg">
+                                <div *ngIf="Form.controls['availableFrom'].errors?.['required']">Please enter
+                                    date.</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex justify-content-end gap-3 mt-4">
+                        <button class="btn btn-outline-secondary">Cancel</button>
+                        <button (click)="onSubmit()" class="ct_black_btn px-3 py-2">
+                            {{property_id ? 'Update' : 'Publish'}} Property
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="ct_loader_main" *ngIf="loading">
+    <span class="loader"></span>
+</div>

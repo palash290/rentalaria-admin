@@ -1,0 +1,58 @@
+<section class="ct_login_main">
+    <div class="ct_login_left position-relative">
+        <!-- <img src="img/login-left.png" alt=""> -->
+        <div class="ct_login_btm_logo">
+            <img src="img/logo-white.png" alt="">
+
+        </div>
+
+        <div class="login-content">
+            <h5>
+                Manage Smarter. <br>Operate Seamlessly.
+            </h5>
+            <p>
+                Log in to manage properties, enquiries, and content while maintaining a smooth and reliable
+                workflow across the platform.
+            </p>
+        </div>
+
+    </div>
+    <div class="ct_login_right">
+        <h4 class="ct_fs_44  ct_fw_400 mb-2">Verify OTP</h4>
+        <p>
+            Don’t worry it happens, please enter the email associated with your account.
+        </p>
+        <form [formGroup]="Form" class="login-form">
+            <div class="form-group mb-5">
+                <label for="" class="mb-2">Email</label>
+                <div class="position-relative">
+                    <nz-flex nzVertical [nzGap]="20">
+                        <nz-flex nzVertical>
+                            <nz-input-otp formControlName="otp" [nzLength]="4" [nzSize]="'default'">
+                            </nz-input-otp>
+                            <span class="ct_text_red mt-2">
+                                {{ validationErrorService.getErrorMessage('OTP', Form.get('otp')) }}
+                            </span>
+                        </nz-flex>
+                    </nz-flex>
+                </div>
+                <!-- <div *ngIf="Form.controls['email'].invalid && Form.controls['email'].touched" class="err_msg">
+                    <div *ngIf="Form.controls['email'].errors?.['required']" class="ct_fs_14 mt-1">
+                        Email is required.
+                    </div>
+                    <div *ngIf="Form.controls['email'].errors?.['email'] && !Form.controls['email'].errors?.['required']"
+                        class="ct_fs_14 mt-1">
+                        Invalid email format.</div>
+                </div> -->
+                <span class="ct_text_red mt-2 d-none">Please Enter Email</span>
+            </div>
+            <div class="" (click)="onSubmit()">
+                <a class="ct_black_btn w-100">Send OTP</a>
+            </div>
+          
+        </form>
+    </div>
+</section>
+<div class="ct_loader_main" *ngIf="loading || isLoadingResend">
+    <span class="loader"></span>
+</div>

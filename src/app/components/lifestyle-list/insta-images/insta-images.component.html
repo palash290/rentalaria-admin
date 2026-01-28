@@ -1,0 +1,52 @@
+<div class="ct_inner_header_bg mt-4 ct_px_30 ">
+    <div class="container my-4 property-page">
+        <!-- Header -->
+        <div>
+            <a routerLink="/home/lifestyle-setting"
+                class="text-decoration-none text-dark mb-3 d-inline-block ct_fw_500 ct_fs_26">
+                <i class="fa-solid fa-chevron-left me-2"></i>
+            </a>
+            <span class="text-dark mb-3 d-inline-block ct_fw_400 ct_fs_26">
+                Instagram Images </span>
+        </div>
+        <div class="py-4 bg-white header-inner-box ct_border_radius_15">
+            <h4 class="ct_fs_16 ct_fw_400 mb-2 ct_black_text">Upload Images</h4>
+            <p class="ct_text_black mb-0 ct_fs_14">Manage and Monitor Platform</p>
+        </div>
+        <div class="my-4">
+            <label class="form-label ct_fw_500">Upload Images & Videos</label>
+            <div class="upload-box">
+                <img src="img/icons/upload-cloud-01.png">
+                <p class="mb-1">Drag and drop files here</p>
+                <small class="text-muted">PNG, JPG up to 10MB</small><br>
+                <!-- Hidden file input -->
+                <input type="file" id="fileInput" accept="image/*" hidden (change)="onFilesSelected($event)" multiple>
+                <!-- Label styled as button -->
+                <label for="fileInput" class="btn mt-3 browse-file-btn">
+                    Browse Files
+                </label>
+            </div>
+            <div class="upload-imgs ct_custom_scroll">
+                <div class="img-item" *ngFor="let item of selectedImages; let i = index">
+
+                    <!-- IMAGE -->
+                    <img *ngIf="item.type === 'image'" [src]="item.url" alt="">
+
+                    <!-- VIDEO -->
+                    <video *ngIf="item.type === 'video'" [src]="item.url" controls muted></video>
+
+                    <button class="img-remove" (click)="removeImage(i)">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+
+                </div>
+            </div>
+            <div class="d-flex justify-content-end gap-3 mt-4">
+                <button routerLink="/home/lifestyle-setting" class="btn btn-outline-secondary">Cancel</button>
+                <button (click)="onSubmit()" class="ct_black_btn px-3 py-2">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

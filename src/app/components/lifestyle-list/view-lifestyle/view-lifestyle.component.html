@@ -1,0 +1,23 @@
+<div class="ct_inner_header_bg mt-4 ct_px_30 ">
+    <div class="container my-4 property-page">
+
+        <!-- Header -->
+        <div>
+            <a routerLink="/home/lifestyle-list"
+                class="text-decoration-none text-dark mb-3 d-inline-block ct_fw_500 ct_fs_26">
+                <i class="fa-solid fa-chevron-left me-2"></i>
+            </a>
+            <span class="text-dark mb-3 d-inline-block ct_fw_500 ct_fs_26">View
+                Lifestyle</span>
+        </div>
+
+        <div class="view-lifestyle-content">
+            <div class="full-img">
+                <img [src]="blogDetails?.cover_image">
+            </div>
+            <!-- Blog content -->
+            <div class="blog-content mt-4" [innerHTML]="blogDetails?.content">
+            </div>
+        </div>
+    </div>
+</div>

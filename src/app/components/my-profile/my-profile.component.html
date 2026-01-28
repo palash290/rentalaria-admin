@@ -1,0 +1,65 @@
+<div class="ct_px_30 mt-4 pb-4">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="">
+                    <div class="d-flex align-items-center gap-3 justify-content-between ct_flex_col_1199">
+                        <div>
+                            <h4 class="ct_fs_26 ct_fw_500 mb-2 ct_text_black">Edit Profile</h4>
+                        </div>
+                    </div>
+                </div>
+                <form [formGroup]="profileForm" class="mt-5 ct_border_radius_12 ct_border_clr_EAEBEF ct_py_28_px_20">
+                    <div class="d-flex gap-4">
+                        <div class="ct_profile_img">
+                            <img [src]="profileImg ? profileImg : 'img/no_pro.png'" alt="">
+                            <label for="ct_profile_update">
+                                <input type="file" class="d-none" id="ct_profile_update"
+                                    (change)="onFileSelected($event)" accept="image/*">
+                                <div class="ct_upload_icon">
+                                    <img src="img/upload_icon.png" alt="">
+                                </div>
+                            </label>
+                        </div>
+                        <div>
+                            <h4 class="ct_fs_20 ct_fw_500 mb-0  mt-4">{{first_name}}</h4>
+                            <p class="ct_fs_14">{{userEmail}}</p>
+                        </div>
+                    </div>
+                    <div class="mt-5 row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-1 ct_text_black ct_fs_15 ct_fw_400">Full
+                                    Name</label>
+                                <input type="text" class="form-control ct_input ct_fs_14" placeholder="Enter Full Name"
+                                    value="Jenny Jhonson" formControlName="name">
+                                <div *ngIf="profileForm.controls['name'].invalid && profileForm.controls['name'].touched"
+                                    class="err_msg">
+                                    <div *ngIf="profileForm.controls['name'].errors?.['required']">Please enter
+                                        your full name.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-1 ct_text_black ct_fs_15 ct_fw_400">Email Id
+                                    <span class="text-grey">(non-editable)</span></label>
+                                <input type="email" class="form-control ct_input ct_fs_14"
+                                    placeholder="Enter Email Address" value="jennyjhonsongmail.com"
+                                    formControlName="email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <!-- <button class="ct_outline_btn">Cancel</button> -->
+                        <button (click)="onSubmit()" class="ct_black_btn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ct_loader_main" *ngIf="loading">
+    <span class="loader"></span>
+</div>
