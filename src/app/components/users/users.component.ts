@@ -93,5 +93,15 @@ export class UsersComponent {
     });
   }
 
+  @ViewChild('blockModal') blockModal!: ElementRef;
+
+  ngAfterViewInit() {
+    const modalEl = this.blockModal.nativeElement;
+
+    modalEl.addEventListener('hidden.bs.modal', () => {
+      this.loadData();
+    });
+  }
+
 
 }
