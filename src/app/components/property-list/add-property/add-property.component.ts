@@ -81,7 +81,7 @@ export class AddPropertyComponent {
       type: ['', [Validators.required]],
       bedrooms: ['', [Validators.required, Validators.min(0)]],
       bathroom: ['', [Validators.required, Validators.min(0)]],
-      houseRules: ['', [Validators.required]],
+      // houseRules: ['', [Validators.required]],
       // rent: ['', [Validators.required]],
       rent: ['', [
         Validators.required,
@@ -124,7 +124,7 @@ export class AddPropertyComponent {
 
         this.content = resp.data.property_description || '';
         this.terminalName = resp.data.address;
-        debugger
+        // debugger
         this.latitude = Number(resp.data.latitude);
         this.longitude = Number(resp.data.longitude);
 
