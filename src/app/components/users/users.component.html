@@ -6,7 +6,7 @@
         </div>
         <div class="search-box ct_w_100_767 mt-md-0 mt-3">
             <div class="input-group position-relative ct_w_100_767">
-                <input type="text" class="form-control ct_input pe-5 " placeholder="Search by property name..."
+                <input type="text" class="form-control ct_input pe-5 " placeholder="Search by user name..."
                     [(ngModel)]="searchText" (input)="filterTable()" [ngModelOptions]="{standalone: true}">
                 <i class="fas fa-search ct_show_eye"></i>
             </div>
@@ -62,7 +62,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header pb-0 border-0">
-                <button type="button" class="btn-close ct_close" data-bs-dismiss="modal" aria-label="Close">
+                <button (click)="loadData()" type="button" class="btn-close ct_close" data-bs-dismiss="modal" aria-label="Close">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -77,12 +77,12 @@
                         </figcaption>
                     </figure>
                     <div class="d-flex justify-content-center border-0 gap-3 ct_modal_footer mt-4">
-                        <button #closeModalBlock type="button" class="ct_black_btn ct_h_40 w-100 ct_fw_500"
+                        <button (click)="loadData()" #closeModalBlock type="button" class="ct_black_btn ct_h_40 w-100 ct_fw_500"
                             data-bs-dismiss="modal">
                             No
                         </button>
                         <a (click)="confirmToggle()"
-                            class="ct_border_radius_10 ct_h_40 ct_grey_btn ct_red_btn w-100 ct_fw_500 text-center">Yes,
+                            class="ct_border_radius_10 ct_h_40 ct_grey_btn ct_red_btn w-100 ct_fw_500 text-center">Yes
                         </a>
                     </div>
                 </div>
@@ -92,5 +92,5 @@
 </div>
 
 <div class="ct_loader_main" *ngIf="loading">
-      <span class="loader"></span>
+    <span class="loader"></span>
 </div>

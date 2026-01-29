@@ -79,8 +79,8 @@ export class AddPropertyComponent {
       // address: ['', [Validators.required]],
       sq_foot: ['', [Validators.required]],
       type: ['', [Validators.required]],
-      bedrooms: ['', [Validators.required, Validators.min(0)]],
-      bathroom: ['', [Validators.required, Validators.min(0)]],
+      bedrooms: ['', [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]],
+      bathroom: ['', [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]],
       // houseRules: ['', [Validators.required]],
       // rent: ['', [Validators.required]],
       rent: ['', [

@@ -20,7 +20,7 @@ export class AddLifestyleComponent {
   public content = '';
   loading: boolean = false;
   allTags: any;
-  selectedtagsIds: number[] = [5,6];
+  selectedtagsIds: number[] = [5, 6];
   blog_id: any;
 
   public editorConfig = {
@@ -130,6 +130,13 @@ export class AddLifestyleComponent {
 
   submit() {
     this.Form.markAllAsTouched();
+
+    const title = this.Form.value.title?.trim();
+    const short_description = this.Form.value.short_description?.trim();
+
+    if (!title || !short_description) {
+      return;
+    }
 
     if (this.Form.valid) {
       this.loading = true;
