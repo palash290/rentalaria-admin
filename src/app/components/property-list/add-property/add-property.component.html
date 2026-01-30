@@ -1,5 +1,5 @@
 <div class="ct_inner_header_bg mt-4 ct_px_30 ">
-    <div class="container my-4 property-page">
+    <div class="container-fluid my-4 property-page">
 
         <!-- Header -->
         <div>
@@ -11,7 +11,7 @@
                 Property</span>
         </div>
 
-        <div class="">
+        <div class="pb-5">
             <form [formGroup]="Form">
                 <div class="card bg-transparent border-0 add-property-form">
 
@@ -131,7 +131,7 @@
                                     <input type="email" class="form-control ct_input ct_input_ps_50 ct_input_pe_100"
                                         placeholder="Enter Location" #drEmail>
                                     <button type="button" class="ct_show_eye btn btn-dark ct_h_40 px-3"
-                                        style="right: 16px;" (click)="addLocation(drEmail.value)">
+                                        style="right: 10px;" (click)="addLocation(drEmail.value)">
                                         Add
                                     </button>
                                 </div>
@@ -385,7 +385,7 @@
 
                     <!-- Buttons -->
                     <div class="d-flex justify-content-end gap-3 mt-4">
-                        <button class="btn btn-outline-secondary">Cancel</button>
+                        <button class="ct_outline_btn">Cancel</button>
                         <button (click)="onSubmit()" class="ct_black_btn px-3 py-2">
                             {{property_id ? 'Update' : 'Publish'}} Property
                         </button>
