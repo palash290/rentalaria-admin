@@ -62,8 +62,8 @@
                             </option>
                         </select>
 
-                        <div *ngIf="Form.controls['type'].invalid && Form.controls['type'].touched" class="err_msg">
-                            <div *ngIf="Form.controls['type'].errors?.['required']">Please enter
+                        <div *ngIf="Form.controls['city'].invalid && Form.controls['city'].touched" class="err_msg">
+                            <div *ngIf="Form.controls['city'].errors?.['required']">Please enter
                                 square footage.</div>
                         </div>
                     </div>
@@ -385,7 +385,7 @@
 
                     <!-- Buttons -->
                     <div class="d-flex justify-content-end gap-3 mt-4">
-                        <button class="btn btn-outline-secondary">Cancel</button>
+                        <button routerLink="/home/property-list" class="btn btn-outline-secondary">Cancel</button>
                         <button (click)="onSubmit()" class="ct_black_btn px-3 py-2">
                             {{property_id ? 'Update' : 'Publish'}} Property
                         </button>

@@ -71,18 +71,15 @@ export class AddPropertyComponent {
     private service: CommonService, private router: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getAmenities();
     this.property_id = this.router.snapshot.queryParamMap.get('property_id');
     this.Form = this.fb.group({
       property_name: ['', [Validators.required]],
-      // description: ['', [Validators.required]],
       city: ['', [Validators.required]],
-      // address: ['', [Validators.required]],
       sq_foot: ['', [Validators.required]],
       type: ['', [Validators.required]],
       bedrooms: ['', [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]],
       bathroom: ['', [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]],
-      // houseRules: ['', [Validators.required]],
-      // rent: ['', [Validators.required]],
       rent: ['', [
         Validators.required,
         Validators.pattern(/^[1-9]\d*(\.\d+)?$/)
@@ -94,9 +91,12 @@ export class AddPropertyComponent {
       availableFrom: ['', [Validators.required]],
     });
     if (this.property_id) {
-      this.getPropertyDetails();
+      setTimeout(() => {
+        this.getPropertyDetails();
+      }, 300);
+      
     }
-    this.getAmenities();
+    
     this.dateValidation();
   }
 
@@ -284,7 +284,7 @@ export class AddPropertyComponent {
     /* ---------------- PRICING ---------------- */
     formData.append('monthly_rent', this.Form.value.rent);
     formData.append('security_deposit', this.Form.value.deposit);
-    formData.append('available_from', this.Form.value.availableFrom);
+    formData.append('available_from', String(this.Form.value.availableFrom));
 
     // append deleteIds when updating
     if (this.property_id && this.deleteIds.length) {
