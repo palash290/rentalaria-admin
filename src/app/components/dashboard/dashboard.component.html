@@ -5,7 +5,7 @@
 <div class="ct_px_30 mt-4 pb-4">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 mb-4">
+            <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 mb-4">
                 <div routerLink="/home/property-list"
                     class="ct_white_bg ct_py_28_px_20 ct_dash_card ct_border_radius_10 ct_border_clr_D2D5DB ct_courser_pointer">
                     <div>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div routerLink="/home/users" class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 mb-4 ct_courser_pointer">
+            <div routerLink="/home/users" class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 mb-4 ct_courser_pointer">
                 <div class="ct_white_bg ct_py_28_px_20 ct_dash_card ct_border_radius_10 ct_border_clr_D2D5DB">
                     <div>
                         <h3 class="ct_fw_500 ct_fs_28 mb-1 ct_text_black">{{dashboardData?.totalUsers}}</h3>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div routerLink="/home/enquiries-list" class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 mb-4 ct_courser_pointer">
+            <div routerLink="/home/enquiries-list" class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 mb-4 ct_courser_pointer">
                 <div class="ct_white_bg ct_py_28_px_20 ct_dash_card ct_border_radius_10 ct_border_clr_D2D5DB">
                     <div>
                         <h3 class="ct_fw_500 ct_fs_28 mb-1 ct_text_black">{{dashboardData?.totalEnquiries}}</h3>
@@ -118,7 +118,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of recentInquries; let i = index">
-                                <td>{{item.property_name}}</td>
+                                <td><span class="ct_overlay_text d-block">{{item.property_name}}</span></td>
                                 <td>
                                     {{item.user_name}}
                                 </td>

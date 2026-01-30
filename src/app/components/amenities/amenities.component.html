@@ -1,10 +1,11 @@
 <div class="ct_inner_header_bg mt-4 ct_px_30 ">
     <div class="py-4 bg-white header-inner-box">
-        <h4 class="ct_fs_26 ct_fw_500 mb-0 ct_black_text">Amenities</h4>
+       <div class="d-flex align-items-center justify-content-between gap-3 ct_flex_col_767">
+        <div>
+             <h4 class="ct_fs_26 ct_fw_500 mb-0 ct_black_text">Amenities</h4>
         <p class="ct_text_black mb-0">Manage and Monitor Platform Amenities</p>
-        <div class="mt-3">
-            <div class="property-toolbar">
-                <div class="d-md-flex align-items-center gap-3 flex-wrap justify-content-between">
+        </div>
+         <div class="d-md-flex align-items-center gap-3 justify-content-between ct_w_100_767">
                     <div class="d-flex ct_flex_col_767 gap-3">
                         <!-- Search -->
                         <div class="search-box ct_w_100_767">
@@ -27,13 +28,15 @@
                         Add Amenities
                     </a>
                 </div>
-            </div>
-        </div>
+     
+
+       </div>
+      
     </div>
 </div>
 
 <div class="ct_inner_header_bg mt-4 ct_px_30 ">
-    <div class="container my-4 property-page">
+    <div class="container-fluid my-4 property-page">
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive ct_custom_table">
@@ -48,7 +51,7 @@
                         <tbody>
                             <tr *ngFor="let item of filteredData; let i = index">
                                 <td>{{i+1}}</td>
-                                <td>{{item.name}}</td>
+                                <td><span class="ct_overlay_text d-inline-block">{{item.name}}</span></td>
                                 <td>
                                     <div class="d-flex align-items-center gap-3">
                                         <a data-bs-toggle="modal" data-bs-target="#addAmeModal" (click)="getId(item)">
@@ -77,7 +80,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 rounded-4 p-4">
 
-            <div class="d-flex justify-content-between align-items-center border-bottom pb-4 mb-3">
+            <div class="d-flex justify-content-between align-items-center  pb-4 ">
                 <h4 class="ct_fs_24 ct_fw_500 my-0">{{amenityId ? 'Update' : 'Add'}} Amenity</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
